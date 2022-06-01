@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using EReconciliation.Core.Entities.Concrete;
+using EReconciliation.Entities.Concrete;
+using Microsoft.EntityFrameworkCore;
 
 namespace EReconciliation.DataAccess.Concrete.EntityFramework.Context
 {
@@ -9,6 +11,17 @@ namespace EReconciliation.DataAccess.Concrete.EntityFramework.Context
             optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=eReconciliationDb;Integrated Security=true");
         }
 
-        public DbSet<AccountReconciliationDetail>
+        public DbSet<AccountReconciliationDetail> AccountReconciliationDetails { get; set; }
+        public DbSet<AccountReconciliation> AccountReconciliations { get; set; }
+        public DbSet<BaBsReconciliation> BaBsReconciliations { get; set; }
+        public DbSet<BaBsReconciliationDetail> BaBsReconciliationDetails { get; set; }
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<Currency> Currencies { get; set; }
+        public DbSet<CurrencyAccount> CurrencyAccounts { get; set; }
+        public DbSet<MailParameter> MailParameters { get; set; }
+        public DbSet<OperationClaim> OperationClaims { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<UserCompany> UserCompanies { get; set; }
+        public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
     }
 }
