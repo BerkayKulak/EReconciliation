@@ -2,7 +2,7 @@
 
 namespace EReconciliation.Entities.Concrete
 {
-    public class Companies : IEntity
+    public class Company : IEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }
