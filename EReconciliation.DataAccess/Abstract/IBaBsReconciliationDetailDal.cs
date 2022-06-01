@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using EReconciliation.Core.DataAccess;
+using EReconciliation.Entities.Concrete;
 
 namespace EReconciliation.DataAccess.Abstract
 {
-    internal interface IBaBsReconciliationDetailDal
+    public interface IBaBsReconciliationDetailDal : IEntityRepository<BaBsReconciliationDetail>
     {
     }
 }
