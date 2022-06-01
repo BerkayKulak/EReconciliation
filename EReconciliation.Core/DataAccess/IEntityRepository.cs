@@ -9,6 +9,6 @@ namespace EReconciliation.Core.DataAccess
         void Update(T entity);
         void Delete(T entity);
         List<T> GetList(Expression<Func<T, bool>> filter = null);
-        T Get(int id);
+        T Get(Expression<Func<T, bool>> filter);
     }
 }
