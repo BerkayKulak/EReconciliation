@@ -5,7 +5,7 @@ using EReconciliation.Entities.Concrete;
 
 namespace EReconciliation.DataAccess.Concrete.EntityFramework
 {
-    public class EfCompanyDal : EfEntityRepositoryBase<Company, ContextDb>, ICompanyDal
+    public class EfAccountReconciliationDal : EfEntityRepositoryBase<AccountReconciliation, ContextDb>, IAccountReconciliationDal
     {
     }
 }
