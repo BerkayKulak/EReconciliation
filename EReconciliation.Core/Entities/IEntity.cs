@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EReconciliation.Core.Entities
+﻿namespace EReconciliation.Core.Entities
 {
-    internal interface IEntity
+    public interface IEntity
     {
     }
 }
