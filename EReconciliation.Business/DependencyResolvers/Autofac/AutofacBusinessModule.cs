@@ -28,6 +28,9 @@ namespace EReconciliation.Business.DependencyResolvers.Autofac
             builder.RegisterType<CurrencyManager>().As<ICurrencyService>();
             builder.RegisterType<EfCurrencyAccountDal>().As<ICurrencyAccountDal>();
 
+            builder.RegisterType<CurrencyAccountManager>().As<ICurrencyAccountService>();
+            builder.RegisterType<EfCurrencyAccountDal>().As<ICurrencyAccountDal>();
+
             builder.RegisterType<MailParameterManager>().As<IMailParameterService>();
             builder.RegisterType<EfMailParameterDal>().As<IMailParameterDal>();
         }
