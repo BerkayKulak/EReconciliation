@@ -1,4 +1,5 @@
 ﻿using EReconciliation.Core.Entities.Concrete;
+using EReconciliation.Core.Extensions;
 using EReconciliation.Core.Utilities.Security.Encryption;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -16,7 +17,7 @@ namespace EReconciliation.Core.Utilities.Security.JWT
         public JwtHelper(IConfiguration configuration)
         {
             Configuration = configuration;
-            _tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>(;
+            _tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
         }
 
         public AccessToken CreateToken(User user, List<OperationClaim> operationClaims, int companyId)
@@ -49,7 +50,7 @@ namespace EReconciliation.Core.Utilities.Security.JWT
         private IEnumerable<Claim> SetClaims(User user, List<OperationClaim> operationClaims, int companyId)
         {
             var claims = new List<Claim>();
-            claims.AddNameIdentifier(user.Id.ToString());
+            claims.AddNameIdentitifier(user.Id.ToString());
             claims.AddEmail(user.Email);
             claims.AddName($"{user.Name}");
             claims.AddRoles(operationClaims.Select(c => c.Name).ToArray());
