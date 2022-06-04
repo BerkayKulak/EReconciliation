@@ -1,9 +1,12 @@
-﻿using EReconciliation.Entities.Concrete;
+﻿using EReconciliation.Core.Utilities.Results.Abstract;
+using EReconciliation.Entities.Concrete;
 
 namespace EReconciliation.Business.Abstract
 {
     public interface ICompanyService
     {
-        List<Company> GetList();
+        IResult Add(Company company);
+        IDataResult<List<Company>> GetList();
     }
 }
+

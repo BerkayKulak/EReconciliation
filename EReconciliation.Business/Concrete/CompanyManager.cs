@@ -1,4 +1,7 @@
 ﻿using EReconciliation.Business.Abstract;
+using EReconciliation.Business.Constants;
+using EReconciliation.Core.Utilities.Results.Abstract;
+using EReconciliation.Core.Utilities.Results.Concrete;
 using EReconciliation.DataAccess.Abstract;
 using EReconciliation.Entities.Concrete;
 
@@ -13,9 +16,16 @@ namespace EReconciliation.Business.Concrete
             _companyDal = companyDal;
         }
 
-        public List<Company> GetList()
+
+        public IResult Add(Company company)
         {
-            return _companyDal.GetList();
+            _companyDal.Add(company);
+            return new SuccessResult(Messages.AddedCompany);
+        }
+
+        public IDataResult<List<Company>> GetList()
+        {
+            return new SuccessDataResult<List<Company>>(_companyDal.GetList());
         }
     }
 }
