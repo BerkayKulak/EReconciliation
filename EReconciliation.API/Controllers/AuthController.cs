@@ -38,5 +38,24 @@ namespace EReconciliation.API.Controllers
             return BadRequest(registerResult.Message);
         }
 
+        [HttpPost("login")]
+        public IActionResult Login(UserForLogin userForLogin)
+        {
+            var userToLogin = _authService.Login(userForLogin);
+            if (!userToLogin.Success)
+            {
+                return BadRequest(userToLogin);
+            }
+
+            var result = _authService.CreateAccessToken(userToLogin.Data, 0);
+
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+
+            return BadRequest(result.Message);
+
+        }
     }
 }
