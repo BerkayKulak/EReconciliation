@@ -8,7 +8,7 @@ namespace EReconciliation.Business.Abstract
     public interface IAuthService
     {
         IDataResult<User> Register(UserForRegister userForRegister, string password);
-        IDataResult<User> Login(UserForRegister userForRegister);
+        IDataResult<User> Login(UserForLogin userForLogin);
         IResult UserExists(string email);
         IDataResult<AccessToken> CreateAccessToken(User user);
     }
