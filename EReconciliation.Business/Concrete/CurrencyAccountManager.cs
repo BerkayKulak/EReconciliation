@@ -3,13 +3,13 @@ using EReconciliation.DataAccess.Abstract;
 
 namespace EReconciliation.Business.Concrete
 {
-    public class CurrencyAccountManager : ICurrencyService
+    public class CurrencyAccountManager : ICurrencyAccountService
     {
-        private readonly ICurrencyDal _currencyDal;
+        private readonly ICurrencyAccountDal _currencyAccountDal;
 
-        public CurrencyAccountManager(ICurrencyDal currencyDal)
+        public CurrencyAccountManager(ICurrencyAccountDal currencyAccountDal)
         {
-            _currencyDal = currencyDal;
+            _currencyAccountDal = currencyAccountDal;
         }
     }
 }
