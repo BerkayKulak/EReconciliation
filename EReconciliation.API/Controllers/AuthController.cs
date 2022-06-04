@@ -25,11 +25,15 @@ namespace EReconciliation.API.Controllers
             }
 
             var registerResult = _authService.Register(userForRegister, userForRegister.Password);
-            //var result = _authService.CreateAccessToken();
-            if (registerResult.Success)
+            var result = _authService.CreateAccessToken(registerResult.Data, 0);
+            if (result.Success)
             {
-                return Ok(registerResult);
+                return Ok(result.Data);
             }
+            //if (registerResult.Success)
+            //{
+            //    return Ok(registerResult);
+            //}
 
             return BadRequest(registerResult.Message);
         }
