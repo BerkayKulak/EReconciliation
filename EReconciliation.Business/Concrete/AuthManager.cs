@@ -12,15 +12,31 @@ namespace EReconciliation.Business.Concrete
     public class AuthManager : IAuthService
     {
         private readonly IUserService _userService;
+        private readonly ITokenHelper _tokenHelper;
 
-        public AuthManager(IUserService userService)
+        public AuthManager(IUserService userService, ITokenHelper tokenHelper)
         {
             _userService = userService;
+            _tokenHelper = tokenHelper;
         }
 
         public IDataResult<User> Register(UserForRegister userForRegister, string password)
         {
-            throw new NotImplementedException();
+            byte[] passwordHash, passwordSalt;
+            HashingHelper.CreatePasswordHash(password, out passwordHash, out passwordSalt);
+            var user = new User()
+            {
+                Email = userForRegister.Email,
+                AddedAt = DateTime.Now,
+                IsActive = true,
+                MailConfirm = false,
+                MailConfirmDate = DateTime.Now,
+                MailConfirmValue = Guid.NewGuid().ToString(),
+                PasswordSalt = passwordSalt,
+                Name = userForRegister.Name
+            };
+            _userService.Add(user);
+            return new SuccessDataResult<User>(user, Messages.UserRegistered);
         }
 
         public IDataResult<User> Login(UserForLogin userForLogin)
@@ -42,12 +58,18 @@ namespace EReconciliation.Business.Concrete
 
         public IResult UserExists(string email)
         {
-            throw new NotImplementedException();
+            if (_userService.GetByMail(email) != null)
+            {
+                return new ErrorResult(Messages.UserAlreadyExists);
+            }
+            return new SuccessResult();
         }
 
-        public IDataResult<AccessToken> CreateAccessToken(User user)
+        public IDataResult<AccessToken> CreateAccessToken(User user, int companyId)
         {
-            throw new NotImplementedException();
+            var claims = _userService.GetClaims(user, companyId);
+            var accessToken = _tokenHelper.CreateToken(user, claims, companyId);
+            return new SuccessDataResult<AccessToken>(accessToken);
         }
     }
 }
