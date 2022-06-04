@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EReconciliation.DataAccess\EReconciliation.DataAccess.csproj" />
+    <ProjectReference Include="..\EReconciliation.Entities\EReconciliation.Entities.csproj" />
+  </ItemGroup>
+
 </Project>
