@@ -19,8 +19,13 @@ namespace EReconciliation.Business.Concrete
 
         public IResult Add(Company company)
         {
-            _companyDal.Add(company);
-            return new SuccessResult(Messages.AddedCompany);
+            if (company.Name.Length > 10)
+            {
+                _companyDal.Add(company);
+                return new SuccessResult(Messages.AddedCompany);
+            }
+
+            return new ErrorResult("Şirket adı en az 10 karakter olmalıdır.");
         }
 
         public IDataResult<List<Company>> GetList()
