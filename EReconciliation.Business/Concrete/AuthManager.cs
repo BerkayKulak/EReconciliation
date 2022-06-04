@@ -32,6 +32,7 @@ namespace EReconciliation.Business.Concrete
                 MailConfirm = false,
                 MailConfirmDate = DateTime.Now,
                 MailConfirmValue = Guid.NewGuid().ToString(),
+                PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt,
                 Name = userForRegister.Name
             };

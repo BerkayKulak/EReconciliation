@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using EReconciliation.Business.Abstract;
 using EReconciliation.Business.Concrete;
+using EReconciliation.Core.Utilities.Security.JWT;
 using EReconciliation.DataAccess.Abstract;
 using EReconciliation.DataAccess.Concrete.EntityFramework;
 
@@ -38,6 +39,7 @@ namespace EReconciliation.Business.DependencyResolvers.Autofac
             builder.RegisterType<EfUserDal>().As<IUserDal>();
 
             builder.RegisterType<AuthManager>().As<IAuthService>();
+            builder.RegisterType<JwtHelper>().As<ITokenHelper>();
 
         }
     }
