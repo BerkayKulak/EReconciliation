@@ -10,5 +10,6 @@
         public static string UserAlreadyExists = "Kullanıcı Zaten Var";
         public static string CompanyExists = "Şirket Zaten Var";
         public static string MailParameterUpdated = "Mail parametreleri güncellendi";
+        public static string MailSendSuccessfull = "Mail gönderme başarılı";
     }
 }

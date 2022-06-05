@@ -3,7 +3,7 @@ using EReconciliation.Entities.Dtos;
 using System.Net;
 using System.Net.Mail;
 
-namespace EReconciliation.DataAccess.Concrete
+namespace EReconciliation.DataAccess.Concrete.EntityFramework
 {
     public class EfMailDal : IMailDal
     {
