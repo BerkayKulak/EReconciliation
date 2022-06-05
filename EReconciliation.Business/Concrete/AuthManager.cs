@@ -113,7 +113,7 @@ namespace EReconciliation.Business.Concrete
         {
             var result = _companyService.CompanyExists(company);
 
-            if (result != null)
+            if (result.Success == false)
             {
                 return new ErrorResult(Messages.CompanyExists);
             }
