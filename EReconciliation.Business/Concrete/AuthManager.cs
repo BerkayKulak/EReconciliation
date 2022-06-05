@@ -5,6 +5,7 @@ using EReconciliation.Core.Utilities.Hashing;
 using EReconciliation.Core.Utilities.Results.Abstract;
 using EReconciliation.Core.Utilities.Results.Concrete;
 using EReconciliation.Core.Utilities.Security.JWT;
+using EReconciliation.Entities.Concrete;
 using EReconciliation.Entities.Dtos;
 
 namespace EReconciliation.Business.Concrete
@@ -13,14 +14,40 @@ namespace EReconciliation.Business.Concrete
     {
         private readonly IUserService _userService;
         private readonly ITokenHelper _tokenHelper;
+        private readonly ICompanyService _companyService;
 
-        public AuthManager(IUserService userService, ITokenHelper tokenHelper)
+        public AuthManager(IUserService userService, ITokenHelper tokenHelper, ICompanyService companyService)
         {
             _userService = userService;
             _tokenHelper = tokenHelper;
+            _companyService = companyService;
         }
 
-        public IDataResult<User> Register(UserForRegister userForRegister, string password)
+        public IDataResult<User> Register(UserForRegister userForRegister, string password, Company company)
+        {
+            byte[] passwordHash, passwordSalt;
+            HashingHelper.CreatePasswordHash(password, out passwordHash, out passwordSalt);
+            var user = new User()
+            {
+                Email = userForRegister.Email,
+                AddedAt = DateTime.Now,
+                IsActive = true,
+                MailConfirm = false,
+                MailConfirmDate = DateTime.Now,
+                MailConfirmValue = Guid.NewGuid().ToString(),
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordSalt,
+                Name = userForRegister.Name
+            };
+            _userService.Add(user);
+            _companyService.Add(company);
+            _companyService.UserCompanyAdd(user.Id, company.Id);
+
+            return new SuccessDataResult<User>(user, Messages.UserRegistered);
+        }
+
+
+        public IDataResult<User> RegisterSecondAccount(UserForRegister userForRegister, string password)
         {
             byte[] passwordHash, passwordSalt;
             HashingHelper.CreatePasswordHash(password, out passwordHash, out passwordSalt);
@@ -63,6 +90,18 @@ namespace EReconciliation.Business.Concrete
             {
                 return new ErrorResult(Messages.UserAlreadyExists);
             }
+            return new SuccessResult();
+        }
+
+        public IResult CompanyExists(Company company)
+        {
+            var result = _companyService.CompanyExists(company);
+
+            if (result != null)
+            {
+                return new ErrorResult(Messages.CompanyExists);
+            }
+
             return new SuccessResult();
         }
 

@@ -45,5 +45,11 @@ namespace EReconciliation.Business.Concrete
             return new SuccessResult();
 
         }
+
+        public IResult UserCompanyAdd(int userId, int companyId)
+        {
+            _companyDal.UserCompanyAdd(userId, companyId);
+            return new SuccessResult();
+        }
     }
 }
