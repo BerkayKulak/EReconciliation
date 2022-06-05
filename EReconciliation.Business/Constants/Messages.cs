@@ -9,5 +9,6 @@
         public static string UserRegistered = "Kullanıcı Kayıt oldu";
         public static string UserAlreadyExists = "Kullanıcı Zaten Var";
         public static string CompanyExists = "Şirket Zaten Var";
+        public static string MailParameterUpdated = "Mail parametreleri güncellendi";
     }
 }
