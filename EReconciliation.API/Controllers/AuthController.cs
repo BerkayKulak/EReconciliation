@@ -1,5 +1,4 @@
 ﻿using EReconciliation.Business.Abstract;
-using EReconciliation.Entities.Concrete;
 using EReconciliation.Entities.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,23 +16,25 @@ namespace EReconciliation.API.Controllers
         }
 
         [HttpPost("register")]
-        public IActionResult Register(UserForRegister userForRegister, Company company)
+        public IActionResult Register(UserAndCompanyRegisterDto userAndCompanyRegister)
         {
-            var userExists = _authService.UserExists(userForRegister.Email);
+
+            var userExists = _authService.UserExists(userAndCompanyRegister.UserForRegister.Email);
             if (!userExists.Success)
             {
                 return BadRequest(userExists.Message);
             }
 
-            var companyExists = _authService.CompanyExists(company);
+            var companyExists = _authService.CompanyExists(userAndCompanyRegister.Company);
 
             if (!companyExists.Success)
             {
                 return BadRequest(userExists.Message);
             }
 
-            var registerResult = _authService.Register(userForRegister, userForRegister.Password, company);
-            var result = _authService.CreateAccessToken(registerResult.Data, companyId);
+            var registerResult = _authService.Register(userAndCompanyRegister.UserForRegister, userAndCompanyRegister.UserForRegister.Password, userAndCompanyRegister.Company);
+
+            var result = _authService.CreateAccessToken(registerResult.Data, registerResult.Data.CompanyId);
             if (result.Success)
             {
                 return Ok(result.Data);
@@ -50,7 +51,7 @@ namespace EReconciliation.API.Controllers
                 return BadRequest(userExists.Message);
             }
 
-            var registerResult = _authService.Register(userForRegister, userForRegister.Password);
+            var registerResult = _authService.RegisterSecondAccount(userForRegister, userForRegister.Password);
             var result = _authService.CreateAccessToken(registerResult.Data, companyId);
             if (result.Success)
             {

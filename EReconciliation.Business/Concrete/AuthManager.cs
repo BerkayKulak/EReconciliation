@@ -23,7 +23,7 @@ namespace EReconciliation.Business.Concrete
             _companyService = companyService;
         }
 
-        public IDataResult<User> Register(UserForRegister userForRegister, string password, Company company)
+        public IDataResult<UserCompanyDto> Register(UserForRegister userForRegister, string password, Company company)
         {
             byte[] passwordHash, passwordSalt;
             HashingHelper.CreatePasswordHash(password, out passwordHash, out passwordSalt);
@@ -43,7 +43,23 @@ namespace EReconciliation.Business.Concrete
             _companyService.Add(company);
             _companyService.UserCompanyAdd(user.Id, company.Id);
 
-            return new SuccessDataResult<User>(user, Messages.UserRegistered);
+            UserCompanyDto userCompanyDto = new UserCompanyDto()
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Email = user.Email,
+                AddedAt = user.AddedAt,
+                CompanyId = company.Id,
+                IsActive = true,
+                MailConfirm = user.MailConfirm,
+                MailConfirmDate = user.MailConfirmDate,
+                MailConfirmValue = user.MailConfirmValue,
+                PasswordHash = user.PasswordHash,
+                PasswordSalt = user.PasswordSalt
+            };
+
+
+            return new SuccessDataResult<UserCompanyDto>(userCompanyDto, Messages.UserRegistered);
         }
 
 
