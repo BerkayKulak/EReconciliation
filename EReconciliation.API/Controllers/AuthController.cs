@@ -25,9 +25,14 @@ namespace EReconciliation.API.Controllers
                 return BadRequest(userExists.Message);
             }
 
-            var companyExists =
+            var companyExists = _authService.CompanyExists(company);
 
-            var registerResult = _authService.Register(userForRegister, userForRegister.Password);
+            if (!companyExists.Success)
+            {
+                return BadRequest(userExists.Message);
+            }
+
+            var registerResult = _authService.Register(userForRegister, userForRegister.Password, company);
             var result = _authService.CreateAccessToken(registerResult.Data, companyId);
             if (result.Success)
             {
