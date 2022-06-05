@@ -1,9 +1,10 @@
 ﻿using EReconciliation.Core.Utilities.Results.Abstract;
+using EReconciliation.Entities.Dtos;
 
 namespace EReconciliation.Business.Abstract
 {
     public interface IMailService
     {
-        IResult SendMail(string mail, string subject, string body);
+        IResult SendMail(SendMailDto sendMailDto);
     }
 }
