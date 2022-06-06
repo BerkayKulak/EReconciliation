@@ -104,7 +104,7 @@ namespace EReconciliation.Business.Concrete
         }
 
 
-        public IDataResult<User> RegisterSecondAccount(UserForRegister userForRegister, string password)
+        public IDataResult<User> RegisterSecondAccount(UserForRegister userForRegister, string password, int companyId)
         {
             byte[] passwordHash, passwordSalt;
             HashingHelper.CreatePasswordHash(password, out passwordHash, out passwordSalt);
@@ -121,6 +121,11 @@ namespace EReconciliation.Business.Concrete
                 Name = userForRegister.Name
             };
             _userService.Add(user);
+
+            _companyService.UserCompanyAdd(user.Id, companyId);
+
+            SendConfirmEmail(user);
+
             return new SuccessDataResult<User>(user, Messages.UserRegistered);
         }
 
