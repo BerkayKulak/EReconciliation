@@ -23,5 +23,6 @@ namespace EReconciliation.DataAccess.Concrete.EntityFramework.Context
         public DbSet<User> Users { get; set; }
         public DbSet<UserCompany> UserCompanies { get; set; }
         public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
+        public DbSet<MailTemplate> MailTemplates { get; set; }
     }
 }

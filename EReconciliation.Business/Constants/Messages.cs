@@ -11,5 +11,8 @@
         public static string CompanyExists = "Şirket Zaten Var";
         public static string MailParameterUpdated = "Mail parametreleri güncellendi";
         public static string MailSendSuccessfull = "Mail gönderme başarılı";
+        public static string MailTemplateAdded = "Mail Eklendi";
+        public static string MailTemplateUpdated = "Mail Güncellendi";
+        public static string MailTemplateDeleted = "Mail Silindi";
     }
 }
