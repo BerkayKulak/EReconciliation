@@ -14,5 +14,7 @@
         public static string MailTemplateAdded = "Mail Eklendi";
         public static string MailTemplateUpdated = "Mail Güncellendi";
         public static string MailTemplateDeleted = "Mail Silindi";
+        public static string UserMailConfirmSuccessful = "Mail Onaylandı.";
+        public static string MailConfirmSendSuccessful = "Onay maili tekrar gönderildi.";
     }
 }

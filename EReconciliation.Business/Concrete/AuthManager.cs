@@ -64,9 +64,19 @@ namespace EReconciliation.Business.Concrete
                 PasswordSalt = user.PasswordSalt
             };
 
+
+            SendConfirmEmail(user);
+
+
+            return new SuccessDataResult<UserCompanyDto>(userCompanyDto, Messages.UserRegistered);
+        }
+
+
+        void SendConfirmEmail(User user)
+        {
             string subject = "Kullanıcı Kayıt Onay Maili";
             string titleMessage = "Onay Maili";
-            string link = "https://localhost:7240";
+            string link = "https://localhost:7240/api/Auth/confirmuser?value=" + user.MailConfirmValue;
             string linkDescription = "Kaydı onaylamak için tıklayın";
             string body = "Kullanıcınız sisteme kayıt oldu. Kaydınızı tamamlamak için aşağıdaki linke tıklamanız gerekmektedir";
 
@@ -77,7 +87,7 @@ namespace EReconciliation.Business.Concrete
             tempateBody = tempateBody.Replace("{{link}}", link);
             tempateBody = tempateBody.Replace("{{linkDescription}}", linkDescription);
 
-            var mailParameter = _mailParameterService.Get(company.Id);
+            var mailParameter = _mailParameterService.Get(4);
             SendMailDto sendMailDto = new SendMailDto()
             {
                 MailParameter = mailParameter.Data,
@@ -88,9 +98,6 @@ namespace EReconciliation.Business.Concrete
             };
 
             _mailService.SendMail(sendMailDto);
-
-
-            return new SuccessDataResult<UserCompanyDto>(userCompanyDto, Messages.UserRegistered);
         }
 
 
@@ -131,6 +138,16 @@ namespace EReconciliation.Business.Concrete
             return new SuccessDataResult<User>(userToCheck, Messages.SuccessfulLogin);
         }
 
+        public IDataResult<User> GetByMailConfirmValue(string value)
+        {
+            return new SuccessDataResult<User>(_userService.GetByMailConfirmValue(value));
+        }
+
+        public IDataResult<User> GetById(int id)
+        {
+            return new SuccessDataResult<User>(_userService.GetById(id));
+        }
+
         public IResult UserExists(string email)
         {
             if (_userService.GetByMail(email) != null)
@@ -138,6 +155,12 @@ namespace EReconciliation.Business.Concrete
                 return new ErrorResult(Messages.UserAlreadyExists);
             }
             return new SuccessResult();
+        }
+
+        public IResult Update(User user)
+        {
+            _userService.Update(user);
+            return new SuccessResult(Messages.UserMailConfirmSuccessful);
         }
 
         public IResult CompanyExists(Company company)
@@ -157,6 +180,12 @@ namespace EReconciliation.Business.Concrete
             var claims = _userService.GetClaims(user, companyId);
             var accessToken = _tokenHelper.CreateToken(user, claims, companyId);
             return new SuccessDataResult<AccessToken>(accessToken);
+        }
+
+        IResult IAuthService.SendConfirmEmail(User user)
+        {
+            SendConfirmEmail(user);
+            return new SuccessResult(Messages.MailConfirmSendSuccessful);
         }
     }
 }
