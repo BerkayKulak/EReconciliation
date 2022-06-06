@@ -17,14 +17,16 @@ namespace EReconciliation.Business.Concrete
         private readonly ICompanyService _companyService;
         private readonly IMailService _mailService;
         private readonly IMailParameterService _mailParameterService;
+        private readonly IMailTemplateService _mailTemplateService;
 
-        public AuthManager(IUserService userService, ITokenHelper tokenHelper, ICompanyService companyService, IMailService mailService, IMailParameterService mailParameterService)
+        public AuthManager(IUserService userService, ITokenHelper tokenHelper, ICompanyService companyService, IMailService mailService, IMailParameterService mailParameterService, IMailTemplateService mailTemplateService)
         {
             _userService = userService;
             _tokenHelper = tokenHelper;
             _companyService = companyService;
             _mailService = mailService;
             _mailParameterService = mailParameterService;
+            _mailTemplateService = mailTemplateService;
         }
 
         public IDataResult<UserCompanyDto> Register(UserForRegister userForRegister, string password, Company company)
@@ -62,14 +64,27 @@ namespace EReconciliation.Business.Concrete
                 PasswordSalt = user.PasswordSalt
             };
 
+            string subject = "Kullanıcı Kayıt Onay Maili";
+            string titleMessage = "Onay Maili";
+            string link = "https://localhost:7240";
+            string linkDescription = "Kaydı onaylamak için tıklayın";
+            string body = "Kullanıcınız sisteme kayıt oldu. Kaydınızı tamamlamak için aşağıdaki linke tıklamanız gerekmektedir";
+
+            var mailTemplate = _mailTemplateService.GetByTemplateName("Kayıt", 4);
+            string tempateBody = mailTemplate.Data.Value;
+            tempateBody = tempateBody.Replace("{{title}}", subject);
+            tempateBody = tempateBody.Replace("{{message}}", body);
+            tempateBody = tempateBody.Replace("{{link}}", link);
+            tempateBody = tempateBody.Replace("{{linkDescription}}", linkDescription);
+
             var mailParameter = _mailParameterService.Get(company.Id);
             SendMailDto sendMailDto = new SendMailDto()
             {
                 MailParameter = mailParameter.Data,
                 Email = user.Email,
-                Subject = "Kullanıcı Onay Maili",
-                Body =
-                    "Kullanıcınız sisteme kayıt oldu. Kaydınızı tamamlamak için aşağıdaki linke tıklamanız gerekmektedir"
+                Subject = "Kullanıcı Kayıt Onay Maili",
+                Body = tempateBody
+
             };
 
             _mailService.SendMail(sendMailDto);
