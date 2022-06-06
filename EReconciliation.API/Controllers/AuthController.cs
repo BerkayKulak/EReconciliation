@@ -43,7 +43,7 @@ namespace EReconciliation.API.Controllers
         }
 
         [HttpPost("registerSecondAccount")]
-        public IActionResult RegisterSecondAccount(UserForRegister userForRegister, int companyId)
+        public IActionResult RegisterSecondAccount(UserForRegisterToSecondAccountDto userForRegister)
         {
             var userExists = _authService.UserExists(userForRegister.Email);
             if (!userExists.Success)
@@ -51,17 +51,12 @@ namespace EReconciliation.API.Controllers
                 return BadRequest(userExists.Message);
             }
 
-            var registerResult = _authService.RegisterSecondAccount(userForRegister, userForRegister.Password);
-            var result = _authService.CreateAccessToken(registerResult.Data, companyId);
+            var registerResult = _authService.RegisterSecondAccount(userForRegister, userForRegister.Password, userForRegister.CompanyId);
+            var result = _authService.CreateAccessToken(registerResult.Data, userForRegister.CompanyId);
             if (result.Success)
             {
                 return Ok(result.Data);
             }
-            //if (registerResult.Success)
-            //{
-            //    return Ok(registerResult);
-            //}
-
             return BadRequest(registerResult.Message);
         }
 
