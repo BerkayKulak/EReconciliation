@@ -1,5 +1,6 @@
 ﻿using EReconciliation.Business.Abstract;
 using EReconciliation.Business.Constants;
+using EReconciliation.Core.Entities.Concrete;
 using EReconciliation.Core.Utilities.Results.Abstract;
 using EReconciliation.Core.Utilities.Results.Concrete;
 using EReconciliation.DataAccess.Abstract;
@@ -31,6 +32,11 @@ namespace EReconciliation.Business.Concrete
         public IDataResult<List<Company>> GetList()
         {
             return new SuccessDataResult<List<Company>>(_companyDal.GetList());
+        }
+
+        public IDataResult<UserCompany> GetCompany(int userId)
+        {
+            return new SuccessDataResult<UserCompany>(_companyDal.GetCompany(userId));
         }
 
         public IResult CompanyExists(Company company)

@@ -190,6 +190,11 @@ namespace EReconciliation.Business.Concrete
             return new SuccessDataResult<AccessToken>(accessToken);
         }
 
+        public IDataResult<UserCompany> GetCompany(int userId)
+        {
+            return new SuccessDataResult<UserCompany>(_companyService.GetCompany(userId).Data);
+        }
+
         IResult IAuthService.SendConfirmEmail(User user)
         {
             if (user.MailConfirm == true)

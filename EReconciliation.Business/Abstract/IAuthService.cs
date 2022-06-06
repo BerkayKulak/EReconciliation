@@ -18,5 +18,6 @@ namespace EReconciliation.Business.Abstract
         IResult CompanyExists(Company company);
         IResult SendConfirmEmail(User user);
         IDataResult<AccessToken> CreateAccessToken(User user, int companyId);
+        IDataResult<UserCompany> GetCompany(int userId);
     }
 }
