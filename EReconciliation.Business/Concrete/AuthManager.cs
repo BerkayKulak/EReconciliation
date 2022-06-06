@@ -98,6 +98,9 @@ namespace EReconciliation.Business.Concrete
             };
 
             _mailService.SendMail(sendMailDto);
+
+            user.MailConfirmDate = DateTime.Now;
+            _userService.Update(user);
         }
 
 
@@ -184,8 +187,32 @@ namespace EReconciliation.Business.Concrete
 
         IResult IAuthService.SendConfirmEmail(User user)
         {
+            if (user.MailConfirm == true)
+            {
+                return new ErrorResult(Messages.MailAlreadyConfirm);
+            }
+
+            DateTime confirmMailDate = user.MailConfirmDate;
+
+            DateTime now = DateTime.Now;
+
+            if (confirmMailDate.ToShortDateString() == now.ToShortDateString())
+            {
+                if (confirmMailDate.Hour == now.Hour && confirmMailDate.AddMinutes(5).Minute <= now.Minute)
+                {
+                    SendConfirmEmail(user);
+                    return new SuccessResult(Messages.MailConfirmSendSuccessful);
+
+                }
+                else
+                {
+                    return new ErrorResult(Messages.MailConfirmTimeHasNotExpired);
+                }
+            }
             SendConfirmEmail(user);
             return new SuccessResult(Messages.MailConfirmSendSuccessful);
+
+
         }
     }
 }

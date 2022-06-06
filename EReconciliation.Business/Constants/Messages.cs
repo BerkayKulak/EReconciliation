@@ -11,6 +11,8 @@
         public static string CompanyExists = "Şirket Zaten Var";
         public static string MailParameterUpdated = "Mail parametreleri güncellendi";
         public static string MailSendSuccessfull = "Mail gönderme başarılı";
+        public static string MailAlreadyConfirm = "Mailiniz zaten onaylı.";
+        public static string MailConfirmTimeHasNotExpired = "Mail onayını 5 dakikada bir gönderebilirsiniz";
         public static string MailTemplateAdded = "Mail Eklendi";
         public static string MailTemplateUpdated = "Mail Güncellendi";
         public static string MailTemplateDeleted = "Mail Silindi";
