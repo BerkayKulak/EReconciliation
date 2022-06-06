@@ -23,5 +23,14 @@ namespace EReconciliation.DataAccess.Concrete.EntityFramework
                 context.SaveChanges();
             }
         }
+
+        public UserCompany GetCompany(int userId)
+        {
+            using (var context = new ContextDb())
+            {
+                var result = context.UserCompanies.Where(p => p.UserId == userId).FirstOrDefault();
+                return result;
+            }
+        }
     }
 }

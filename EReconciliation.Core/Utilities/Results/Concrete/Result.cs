@@ -18,3 +18,4 @@ namespace EReconciliation.Core.Utilities.Results.Concrete
         public string Message { get; }
     }
 }
+
