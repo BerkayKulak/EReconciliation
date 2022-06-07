@@ -40,5 +40,11 @@
         public static string AddedUserOperationClaim = "Kullanıcıya yetki başarıyla eklendi";
         public static string UpdatedUserOperationClaim = "Kullanıcı yetkisi başarıyla güncellendi";
         public static string DeletedUserOperationClaim = "Kullanıcı yetkisi başarıyla silindi";
+        public static string UpdatedUserTheme = "Tema başarıyla güncellendi";
+        public static string CompanyAlreadyExists = "Bu şirket daha önce kaydedilmiş";
+        public static string MailSendSucessful = "Mail başarıyla gönderildi";
+        public static string ChangedPassword = "Şifre başarıyla değiştirildi";
+        public static string UpdatedUser = "Kullanıcı başarıyla güncellendi";
+        public static string UpdateTermsAndConditions = "Sözleşme başarıyla güncellendi";
     }
 }

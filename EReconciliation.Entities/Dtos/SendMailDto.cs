@@ -1,13 +1,14 @@
-﻿using EReconciliation.Entities.Concrete;
+﻿using EReconciliation.Core.Entities;
+using EReconciliation.Entities.Concrete;
 
 namespace EReconciliation.Entities.Dtos
 {
-    public class SendMailDto
+    public class SendMailDto : IDto
     {
-        public MailParameter MailParameter { get; set; }
-        public string Email { get; set; }
-        public string Subject { get; set; }
-        public string Body { get; set; }
+        public MailParameter mailParameter { get; set; }
+        public string email { get; set; }
+        public string subject { get; set; }
+        public string body { get; set; }
     }
 }
 

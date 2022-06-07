@@ -23,14 +23,15 @@ builder.Services.AddControllers();
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowOrigin", builder => builder.WithOrigins("https://localhost:7240"));
+    options.AddPolicy("AllowOrigin",
+        builder => builder.WithOrigins("https://localhost:7240", "http://localhost:4200", "http://localhost:58007"));
 });
 
 var tokenOptions = configuration.GetSection("TokenOptions").Get<TokenOptions>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
-    options.TokenValidationParameters = new TokenValidationParameters()
+    options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuer = true,
         ValidateAudience = true,
@@ -41,10 +42,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
     };
 });
-builder.Services.AddDependencyResolvers(new ICoreModule[]
-{
-    new CoreModule()
+
+builder.Services.AddDependencyResolvers(new ICoreModule[]{
+    new CoreModule(),
 });
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -58,9 +60,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-
-
-app.UseCors(builder => builder.WithOrigins("https://localhost:7240").AllowAnyHeader());
+app.UseCors(builder => builder.WithOrigins("https://localhost:7240", "http://localhost:4200", "http://localhost:58007").AllowAnyHeader());
 
 app.UseHttpsRedirection();
 
