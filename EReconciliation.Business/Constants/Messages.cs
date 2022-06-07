@@ -31,5 +31,8 @@
         public static string AddedBaBsReconciliation = "BaBs kaydı başarıyla eklendi";
         public static string UpdatedBaBsReconciliation = "BaBs kaydı başarıyla güncellendi";
         public static string DeletedBaBsReconciliation = "BaBs başarıyla silindi";
+        public static string AddedBaBsReconciliationDetail = "BaBs detay kaydı başarıyla eklendi";
+        public static string UpdatedBaBsReconciliationDetail = "BaBs detay kaydı başarıyla güncellendi";
+        public static string DeletedBaBsReconciliationDetail = "BaBs detay başarıyla silindi";
     }
 }
