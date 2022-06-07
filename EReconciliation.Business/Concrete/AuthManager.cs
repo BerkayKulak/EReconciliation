@@ -1,6 +1,7 @@
 ﻿using EReconciliation.Business.Abstract;
 using EReconciliation.Business.Constants;
 using EReconciliation.Business.ValidationRules.FluentValidation;
+using EReconciliation.Core.CrossCuttingConcerns.Validation;
 using EReconciliation.Core.Entities.Concrete;
 using EReconciliation.Core.Utilities.Hashing;
 using EReconciliation.Core.Utilities.Results.Abstract;
@@ -8,7 +9,6 @@ using EReconciliation.Core.Utilities.Results.Concrete;
 using EReconciliation.Core.Utilities.Security.JWT;
 using EReconciliation.Entities.Concrete;
 using EReconciliation.Entities.Dtos;
-using FluentValidation;
 
 namespace EReconciliation.Business.Concrete
 {
@@ -31,6 +31,7 @@ namespace EReconciliation.Business.Concrete
             _mailTemplateService = mailTemplateService;
         }
 
+
         public IDataResult<UserCompanyDto> Register(UserForRegister userForRegister, string password, Company company)
         {
 
@@ -51,21 +52,8 @@ namespace EReconciliation.Business.Concrete
             };
 
 
-            UserValidator userValidator = new UserValidator();
-            var result = userValidator.Validate(user);
-
-            if (!result.IsValid)
-            {
-                throw new ValidationException(result.Errors);
-            }
-
-            CompanyValidator companyValidator = new CompanyValidator();
-            var resultCompany = companyValidator.Validate(company);
-
-            if (!resultCompany.IsValid)
-            {
-                throw new ValidationException(resultCompany.Errors);
-            }
+            ValidationTool.Validate(new UserValidator(), user);
+            ValidationTool.Validate(new CompanyValidator(), company);
 
             _userService.Add(user);
             _companyService.Add(company);
