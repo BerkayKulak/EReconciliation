@@ -19,5 +19,8 @@
         public static string UserMailConfirmSuccessful = "Mail Onaylandı.";
         public static string MailConfirmSendSuccessful = "Onay maili tekrar gönderildi.";
         public static string UpdatedCompany = "Şirket Güncellendi";
+        public static string AddedCurrencyAccount = "Cari Kaydı Başarıyla Eklendi";
+        public static string UpdatedCurrencyAccount = "Cari Kaydı Başarıyla Güncellendi";
+        public static string DeletedCurrencyAccount = "Cari Kaydı Başarıyla Silindi";
     }
 }
