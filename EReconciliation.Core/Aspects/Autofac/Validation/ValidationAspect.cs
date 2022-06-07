@@ -1,6 +1,6 @@
-﻿using Castle.Core.Interceptor;
+﻿using Castle.DynamicProxy;
+using Core.Utilities.Interceptors;
 using EReconciliation.Core.CrossCuttingConcerns.Validation;
-using EReconciliation.Core.Utilities.Interceptors;
 using FluentValidation;
 
 namespace EReconciliation.Core.Aspects.Autofac.Validation
