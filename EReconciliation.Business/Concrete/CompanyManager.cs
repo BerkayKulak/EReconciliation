@@ -1,12 +1,14 @@
 ﻿using EReconciliation.Business.Abstract;
 using EReconciliation.Business.Constants;
 using EReconciliation.Business.ValidationRules.FluentValidation;
+using EReconciliation.Core.Aspects.Autofac.Transaction;
 using EReconciliation.Core.Aspects.Autofac.Validation;
 using EReconciliation.Core.Entities.Concrete;
 using EReconciliation.Core.Utilities.Results.Abstract;
 using EReconciliation.Core.Utilities.Results.Concrete;
 using EReconciliation.DataAccess.Abstract;
 using EReconciliation.Entities.Concrete;
+using EReconciliation.Entities.Dtos;
 
 namespace EReconciliation.Business.Concrete
 {
@@ -23,6 +25,26 @@ namespace EReconciliation.Business.Concrete
         public IResult Add(Company company)
         {
             _companyDal.Add(company);
+            return new SuccessResult(Messages.AddedCompany);
+        }
+
+        public IResult Update(Company company)
+        {
+            _companyDal.Update(company);
+            return new SuccessResult(Messages.UpdatedCompany);
+        }
+
+        public IDataResult<Company> GetById(int id)
+        {
+            return new SuccessDataResult<Company>(_companyDal.Get(p => p.Id == id));
+        }
+
+        [ValidationAspect(typeof(CompanyValidator))]
+        [TransactionScopeAspect]
+        public IResult AddCompanyAndUserCompany(CompanyDto companyDto)
+        {
+            _companyDal.Add(companyDto.Company);
+            _companyDal.UserCompanyAdd(companyDto.UserId, companyDto.Company.Id);
             return new SuccessResult(Messages.AddedCompany);
         }
 
