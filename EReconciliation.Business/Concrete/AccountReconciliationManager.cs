@@ -73,7 +73,7 @@ namespace EReconciliation.Business.Concrete
 
                 }
             }
-
+            File.Delete(filePath);
             return new SuccessResult(Messages.AddedAccountReconciliation);
         }
 
