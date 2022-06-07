@@ -1,5 +1,6 @@
 ﻿using EReconciliation.Business.Abstract;
 using EReconciliation.Entities.Concrete;
+using EReconciliation.Entities.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EReconciliation.API.Controllers
@@ -13,6 +14,32 @@ namespace EReconciliation.API.Controllers
         public CurrencyAccountController(ICurrencyAccountService currencyAccountService)
         {
             _currencyAccountService = currencyAccountService;
+        }
+
+        [HttpPost("addFromExcel")]
+        public IActionResult AddFromExcel(CurrencyAccountExcelDto currencyAccount)
+        {
+            if (currencyAccount.File.Length > 0)
+            {
+                var fileName = Guid.NewGuid().ToString() + ".xlsx";
+                var filePath = $"({Directory.GetCurrentDirectory()}/Content/{fileName})";
+                using (FileStream stream = System.IO.File.Create(filePath))
+                {
+                    currencyAccount.File.CopyTo(stream);
+                    stream.Flush();
+                }
+
+                var result = _currencyAccountService.AddToExcel(filePath);
+
+                if (result.Success)
+                {
+                    return Ok(result);
+                }
+
+                return BadRequest(result.Message);
+            }
+
+            return BadRequest("Dosya seçimi yapmadınız");
         }
 
         [HttpPost("add")]

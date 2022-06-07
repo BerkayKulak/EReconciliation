@@ -1,6 +1,7 @@
 ﻿using EReconciliation.Business.Abstract;
 using EReconciliation.Business.Constants;
 using EReconciliation.Business.ValidationRules.FluentValidation;
+using EReconciliation.Core.Aspects.Autofac.Transaction;
 using EReconciliation.Core.Aspects.Autofac.Validation;
 using EReconciliation.Core.Utilities.Results.Abstract;
 using EReconciliation.Core.Utilities.Results.Concrete;
@@ -23,6 +24,13 @@ namespace EReconciliation.Business.Concrete
         {
             _currencyAccountDal.Add(currencyAccount);
             return new SuccessResult(Messages.AddedCurrencyAccount);
+        }
+
+        [ValidationAspect(typeof(CurrencyAccountValidator))]
+        [TransactionScopeAspect]
+        public IResult AddToExcel(string fileName)
+        {
+            throw new NotImplementedException();
         }
 
         [ValidationAspect(typeof(CurrencyAccountValidator))]
