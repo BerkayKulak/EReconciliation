@@ -46,6 +46,10 @@ namespace EReconciliation.Business.Concrete
 
                         if (code != "Cari Kodu")
                         {
+
+
+
+
                             int currencyAccountId = _currencyAccountService.GetByCode(code, companyId).Data.Id;
                             AccountReconciliation accountReconciliation = new AccountReconciliation()
                             {
@@ -54,8 +58,8 @@ namespace EReconciliation.Business.Concrete
                                 CurrencyCredit = Convert.ToDecimal(credit),
                                 CurrencyDebit = Convert.ToDecimal(debit),
                                 CurrencyId = Convert.ToInt16(currencyId),
-                                StartingDate = Convert.ToDateTime(Convert.ToDateTime(startingDate).ToShortDateString()),
-                                EndingDate = Convert.ToDateTime(Convert.ToDateTime(endingDate).ToShortDateString()),
+                                StartingDate = Convert.ToDateTime(startingDate),
+                                EndingDate = Convert.ToDateTime(endingDate),
 
                             };
 
