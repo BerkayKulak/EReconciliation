@@ -25,5 +25,8 @@
         public static string AddedAccountReconciliation = "Cari mutabakat kaydı başarıyla eklendi";
         public static string UpdatedAccountReconciliation = "Cari mutabakat kaydı başarıyla güncellendi";
         public static string DeletedAccountReconciliation = "Cari mutabakat kaydı başarıyla silindi";
+        public static string AddedAccountReconciliationDetail = "Cari mutabakat kaydı başarıyla silindi";
+        public static string DeletedAccountReconciliationDetail = "Cari mutabakat kaydı başarıyla silindi";
+        public static string UpdatedAccountReconciliationDetail = "Cari mutabakat kaydı başarıyla silindi";
     }
 }
