@@ -1,6 +1,6 @@
-﻿using Castle.Core.Interceptor;
+﻿using Castle.DynamicProxy;
 
-namespace EReconciliation.Core.Utilities.Interceptors
+namespace Core.Utilities.Interceptors
 {
     public class MethodInterception : MethodInterceptionBaseAttribute
     {

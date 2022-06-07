@@ -1,4 +1,6 @@
 ﻿using EReconciliation.Business.Abstract;
+using EReconciliation.Business.ValidationRules.FluentValidation;
+using EReconciliation.Core.Aspects.Autofac.Validation;
 using EReconciliation.Core.Entities.Concrete;
 using EReconciliation.DataAccess.Abstract;
 
@@ -18,6 +20,7 @@ namespace EReconciliation.Business.Concrete
             return _userDal.GetClaims(user, companyId);
         }
 
+        [ValidationAspect(typeof(UserValidator))]
         public void Add(User user)
         {
             _userDal.Add(user);
