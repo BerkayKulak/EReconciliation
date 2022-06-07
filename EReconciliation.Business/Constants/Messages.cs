@@ -37,5 +37,8 @@
         public static string AddedOperationClaim = "Yetki başarıyla eklendi";
         public static string UpdatedOperationClaim = "Yetki başarıyla güncellendi";
         public static string DeletedOperationClaim = "Yetki başarıyla silindi";
+        public static string AddedUserOperationClaim = "Kullanıcıya yetki başarıyla eklendi";
+        public static string UpdatedUserOperationClaim = "Kullanıcı yetkisi başarıyla güncellendi";
+        public static string DeletedUserOperationClaim = "Kullanıcı yetkisi başarıyla silindi";
     }
 }
