@@ -1,5 +1,7 @@
 ﻿using EReconciliation.Business.Abstract;
 using EReconciliation.Business.Constants;
+using EReconciliation.Business.ValidationRules.FluentValidation;
+using EReconciliation.Core.Aspects.Autofac.Validation;
 using EReconciliation.Core.Utilities.Results.Abstract;
 using EReconciliation.Core.Utilities.Results.Concrete;
 using EReconciliation.DataAccess.Abstract;
@@ -16,12 +18,14 @@ namespace EReconciliation.Business.Concrete
             _currencyAccountDal = currencyAccountDal;
         }
 
+        [ValidationAspect(typeof(CurrencyAccountValidator))]
         public IResult Add(CurrencyAccount currencyAccount)
         {
             _currencyAccountDal.Add(currencyAccount);
             return new SuccessResult(Messages.AddedCurrencyAccount);
         }
 
+        [ValidationAspect(typeof(CurrencyAccountValidator))]
         public IResult Update(CurrencyAccount currencyAccount)
         {
             _currencyAccountDal.Update(currencyAccount);
