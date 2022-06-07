@@ -28,5 +28,8 @@
         public static string AddedAccountReconciliationDetail = "Cari mutabakat kaydı başarıyla silindi";
         public static string DeletedAccountReconciliationDetail = "Cari mutabakat kaydı başarıyla silindi";
         public static string UpdatedAccountReconciliationDetail = "Cari mutabakat kaydı başarıyla silindi";
+        public static string AddedBaBsReconciliation = "BaBs kaydı başarıyla eklendi";
+        public static string UpdatedBaBsReconciliation = "BaBs kaydı başarıyla güncellendi";
+        public static string DeletedBaBsReconciliation = "BaBs başarıyla silindi";
     }
 }
