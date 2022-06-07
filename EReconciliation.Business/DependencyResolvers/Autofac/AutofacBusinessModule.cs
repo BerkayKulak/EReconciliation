@@ -24,16 +24,16 @@ namespace EReconciliation.Business.DependencyResolvers.Autofac
             builder.RegisterType<EfAccountReconciliationDal>().As<IAccountReconciliationDal>();
 
             builder.RegisterType<BaBsReconciliationManager>().As<IBaBsReconciliationService>();
-            builder.RegisterType<EfBaBsReconciliationDal>().As<IBaBsReconciliationDal>();
+            builder.RegisterType<EfBaBsRecoinciliationDal>().As<IBaBsReconciliationDal>();
 
             builder.RegisterType<BaBsReconciliationDetailManager>().As<IBaBsReconciliationDetailService>();
             builder.RegisterType<EfBaBsReconciliationDetailDal>().As<IBaBsReconciliationDetailDal>();
 
-            builder.RegisterType<CurrencyManager>().As<ICurrencyService>();
-            builder.RegisterType<EfCurrencyAccountDal>().As<ICurrencyAccountDal>();
-
             builder.RegisterType<CurrencyAccountManager>().As<ICurrencyAccountService>();
             builder.RegisterType<EfCurrencyAccountDal>().As<ICurrencyAccountDal>();
+
+            builder.RegisterType<CurrencyManager>().As<ICurrencyService>();
+            builder.RegisterType<EfCurrencyDal>().As<ICurrencyDal>();
 
             builder.RegisterType<MailParameterManager>().As<IMailParameterService>();
             builder.RegisterType<EfMailParameterDal>().As<IMailParameterDal>();
@@ -47,19 +47,36 @@ namespace EReconciliation.Business.DependencyResolvers.Autofac
             builder.RegisterType<UserManager>().As<IUserService>();
             builder.RegisterType<EfUserDal>().As<IUserDal>();
 
+            builder.RegisterType<TermsandConditionManager>().As<ITermsandConditionService>();
+            builder.RegisterType<EfTermsandConditionDal>().As<ITermsandConditionDal>();
+
+            builder.RegisterType<UserThemeOptionManager>().As<IUserThemeOptionService>();
+            builder.RegisterType<EfUserThemeOptionDal>().As<IUserThemeOptionDal>();
+
             builder.RegisterType<OperationClaimManager>().As<IOperationClaimService>();
             builder.RegisterType<EfOperationClaimDal>().As<IOperationClaimDal>();
+
+            builder.RegisterType<ForgotPasswordManager>().As<IForgotPasswordService>();
+            builder.RegisterType<EfForgotPasswordDal>().As<IForgotPasswordDal>();
+
+            builder.RegisterType<UserOperationClaimManager>().As<IUserOperationClaimService>();
+            builder.RegisterType<EfUserOperationClaimDal>().As<IUserOperationClaimDal>();
+
+            builder.RegisterType<UserReletionShipManager>().As<IUserReletionShipService>();
+            builder.RegisterType<EfUserReletionShipDal>().As<IUserReletionshipDal>();
+
+            builder.RegisterType<UserCompanyManager>().As<IUserCompanyService>();
+            builder.RegisterType<EfUserCompanyDal>().As<IUserCompanyDal>();
 
             builder.RegisterType<AuthManager>().As<IAuthService>();
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 
-            builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces().EnableClassInterceptors(new ProxyGenerationOptions()
+            builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces().EnableInterfaceInterceptors(new ProxyGenerationOptions()
             {
                 Selector = new AspectInterceptorSelector()
             }).SingleInstance();
-
         }
     }
 }
