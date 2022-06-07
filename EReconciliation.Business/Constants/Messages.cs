@@ -22,5 +22,8 @@
         public static string AddedCurrencyAccount = "Cari Kaydı Başarıyla Eklendi";
         public static string UpdatedCurrencyAccount = "Cari Kaydı Başarıyla Güncellendi";
         public static string DeletedCurrencyAccount = "Cari Kaydı Başarıyla Silindi";
+        public static string AddedAccountReconciliation = "Cari mutabakat kaydı başarıyla eklendi";
+        public static string UpdatedAccountReconciliation = "Cari mutabakat kaydı başarıyla güncellendi";
+        public static string DeletedAccountReconciliation = "Cari mutabakat kaydı başarıyla silindi";
     }
 }
