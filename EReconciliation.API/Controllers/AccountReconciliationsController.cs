@@ -15,6 +15,33 @@ namespace EReconciliation.API.Controllers
             _accountReconciliationsService = accountReconciliationsService;
         }
 
+
+        [HttpPost("addFromExcel")]
+        public IActionResult AddFromExcel(IFormFile file, int companyId)
+        {
+            if (file.Length > 0)
+            {
+                var fileName = Guid.NewGuid().ToString() + ".xlsx";
+                var filePath = $"{Directory.GetCurrentDirectory()}/Content/{fileName}";
+                using (FileStream stream = System.IO.File.Create(filePath))
+                {
+                    file.CopyTo(stream);
+                    stream.Flush();
+                }
+
+                var result = _accountReconciliationsService.AddToExcel(filePath, companyId);
+
+                if (result.Success)
+                {
+                    return Ok(result);
+                }
+
+                return BadRequest(result.Message);
+            }
+
+            return BadRequest("Dosya seçimi yapmadınız");
+        }
+
         [HttpPost("add")]
         public IActionResult Add(AccountReconciliation accountReconciliation)
         {
