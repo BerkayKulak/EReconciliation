@@ -1,7 +1,5 @@
 ﻿using EReconciliation.Business.Abstract;
 using EReconciliation.Business.Constants;
-using EReconciliation.Business.ValidationRules.FluentValidation;
-using EReconciliation.Core.CrossCuttingConcerns.Validation;
 using EReconciliation.Core.Entities.Concrete;
 using EReconciliation.Core.Utilities.Hashing;
 using EReconciliation.Core.Utilities.Results.Abstract;
@@ -51,9 +49,6 @@ namespace EReconciliation.Business.Concrete
                 Name = userForRegister.Name
             };
 
-
-            ValidationTool.Validate(new UserValidator(), user);
-            ValidationTool.Validate(new CompanyValidator(), company);
 
             _userService.Add(user);
             _companyService.Add(company);

@@ -1,5 +1,7 @@
 ﻿using EReconciliation.Business.Abstract;
 using EReconciliation.Business.Constants;
+using EReconciliation.Business.ValidationRules.FluentValidation;
+using EReconciliation.Core.Aspects.Autofac.Validation;
 using EReconciliation.Core.Entities.Concrete;
 using EReconciliation.Core.Utilities.Results.Abstract;
 using EReconciliation.Core.Utilities.Results.Concrete;
@@ -17,7 +19,7 @@ namespace EReconciliation.Business.Concrete
             _companyDal = companyDal;
         }
 
-
+        [ValidationAspect(typeof(CompanyValidator))]
         public IResult Add(Company company)
         {
             _companyDal.Add(company);

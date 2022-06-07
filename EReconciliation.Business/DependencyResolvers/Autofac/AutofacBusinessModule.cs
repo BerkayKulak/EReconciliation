@@ -3,6 +3,7 @@ using Autofac.Extras.DynamicProxy;
 using Castle.DynamicProxy;
 using EReconciliation.Business.Abstract;
 using EReconciliation.Business.Concrete;
+using EReconciliation.Core.Utilities.Interceptors;
 using EReconciliation.Core.Utilities.Security.JWT;
 using EReconciliation.DataAccess.Abstract;
 using EReconciliation.DataAccess.Concrete.EntityFramework;
@@ -53,9 +54,9 @@ namespace EReconciliation.Business.DependencyResolvers.Autofac
 
             builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces().EnableClassInterceptors(new ProxyGenerationOptions()
             {
-                Selector = new AspectInterceptorSelector();
-        }).SingleInstance();
+                Selector = new AspectInterceptorSelector()
+            }).SingleInstance();
 
+        }
     }
-}
 }
