@@ -1,5 +1,6 @@
 ﻿using EReconciliation.Business.Abstract;
 using EReconciliation.Business.Constants;
+using EReconciliation.Core.Aspects.Autofac.Transaction;
 using EReconciliation.Core.Entities.Concrete;
 using EReconciliation.Core.Utilities.Hashing;
 using EReconciliation.Core.Utilities.Results.Abstract;
@@ -30,6 +31,7 @@ namespace EReconciliation.Business.Concrete
         }
 
 
+        [TransactionScopeAspect]
         public IDataResult<UserCompanyDto> Register(UserForRegister userForRegister, string password, Company company)
         {
 
