@@ -1,5 +1,6 @@
 ﻿using EReconciliation.Business.Abstract;
 using EReconciliation.Business.Constants;
+using EReconciliation.Business.ValidationRules.FluentValidation;
 using EReconciliation.Core.Entities.Concrete;
 using EReconciliation.Core.Utilities.Hashing;
 using EReconciliation.Core.Utilities.Results.Abstract;
@@ -7,6 +8,7 @@ using EReconciliation.Core.Utilities.Results.Concrete;
 using EReconciliation.Core.Utilities.Security.JWT;
 using EReconciliation.Entities.Concrete;
 using EReconciliation.Entities.Dtos;
+using FluentValidation;
 
 namespace EReconciliation.Business.Concrete
 {
@@ -31,6 +33,8 @@ namespace EReconciliation.Business.Concrete
 
         public IDataResult<UserCompanyDto> Register(UserForRegister userForRegister, string password, Company company)
         {
+
+
             byte[] passwordHash, passwordSalt;
             HashingHelper.CreatePasswordHash(password, out passwordHash, out passwordSalt);
             var user = new User()
@@ -45,6 +49,24 @@ namespace EReconciliation.Business.Concrete
                 PasswordSalt = passwordSalt,
                 Name = userForRegister.Name
             };
+
+
+            UserValidator userValidator = new UserValidator();
+            var result = userValidator.Validate(user);
+
+            if (!result.IsValid)
+            {
+                throw new ValidationException(result.Errors);
+            }
+
+            CompanyValidator companyValidator = new CompanyValidator();
+            var resultCompany = companyValidator.Validate(company);
+
+            if (!resultCompany.IsValid)
+            {
+                throw new ValidationException(resultCompany.Errors);
+            }
+
             _userService.Add(user);
             _companyService.Add(company);
             _companyService.UserCompanyAdd(user.Id, company.Id);
